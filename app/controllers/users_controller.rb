@@ -7,4 +7,13 @@ class UsersController < ApplicationController
       erb :'users/show'
   end
 
+  get "/signup" do
+    user = User.new(params)
+    if user.save
+      redirect "/index"
+    else
+      redirect "/signup"
+    end
+  end
+
 end
