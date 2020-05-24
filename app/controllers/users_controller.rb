@@ -7,25 +7,38 @@ class UsersController < ApplicationController
       erb :'users/show'
   end
 
-  get '/signup' do
-    if logged_in?(session)
-      redirect to "/tweets"
+  get "/signup" do
+    erb :'/users/create_user'
+  end
+
+  post "/signup" do
+    user = User.new(params)
+    if user.save
+      redirect "/teams"
     else
-      erb :'users/create_user'
+      redirect "/signup"
     end
   end
 
-  post '/signup' do
-    @user = User.new(params)
-
-    if @user.username == "" || @user.email == "" || @user.password == ""
-      redirect to "/signup"
-    elsif @user.save
-      session[:id] = @user.id
-      redirect to "/tweets"
-    else
-      redirect to "/signup"
-    end
-  end
+  # get '/signup' do
+  #   if logged_in?(session)
+  #     redirect to "/tweets"
+  #   else
+  #     erb :'users/create_user'
+  #   end
+  # end
+  #
+  # post '/signup' do
+  #   @user = User.new(params)
+  #
+  #   if @user.username == "" || @user.email == "" || @user.password == ""
+  #     redirect to "/signup"
+  #   elsif @user.save
+  #     session[:id] = @user.id
+  #     redirect to "/tweets"
+  #   else
+  #     redirect to "/signup"
+  #   end
+  # end
 
 end
