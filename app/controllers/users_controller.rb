@@ -8,6 +8,8 @@ class UsersController < ApplicationController
   end
 
   get "/signup" do
+    erb :'/users/create_user'
+  end
     user = User.new(params)
     if user.save
       redirect "/index"
